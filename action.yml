@@ -1,6 +1,8 @@
 name: Convox Multitool
 description: Convox CLI interface
 author: Beast Awakens
+icon: cloud
+color: blue
 inputs:
   action:
     description: Convox command to action
