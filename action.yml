@@ -10,6 +10,7 @@ inputs:
     type: choice
     options:
       - build
+      - build-migrate
       - create
       - deploy
       - destroy
@@ -26,6 +27,10 @@ inputs:
     description: Convox Rack name
   app:
     description: Convox app name
+  destination-app:
+    description: Convox destination app name for build migration
+  destination-rack:
+    description: Convox destination rack name for build migration
   description:
     description: Convox build description
   cached:

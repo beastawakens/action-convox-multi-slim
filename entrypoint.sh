@@ -6,25 +6,28 @@ value=$INPUT_ACTION
 # Perform switch case based on the value
 case "$value" in
   "build")
-    ./entrypoint-build.sh
+    /entrypoint-build.sh
+    ;;
+  "build-migrate")
+    /entrypoint-build-migrate.sh
     ;;
   "create")
-    ./entrypoint-create.sh
+    /entrypoint-create.sh
     ;;
   "deploy")
-    ./entrypoint-deploy.sh
+    /entrypoint-deploy.sh
     ;;
   "destroy")
-    ./entrypoint-destroy.sh
+    /entrypoint-destroy.sh
     ;;
   "login")
-    ./entrypoint-login.sh
+    /entrypoint-login.sh
     ;;
   "promote")
-    ./entrypoint-promote.sh
+    /entrypoint-promote.sh
     ;;
   "run")
-    ./entrypoint-run.sh
+    /entrypoint-run.sh
     ;;
   *)
     echo "Invalid action chosen!"

@@ -16,5 +16,5 @@ RUN curl -L https://convox.com/cli/linux/convox -o /tmp/convox \
     && mv /tmp/convox /usr/local/bin/convox \
     && chmod 755 /usr/local/bin/convox
 
-COPY entrypoint.sh /entrypoint.sh
+COPY entrypoint* /
 ENTRYPOINT ["/entrypoint.sh"]
