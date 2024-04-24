@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "Building"
+echo "Building $INPUT_APP on $INPUT_RACK"
 export CONVOX_RACK=$INPUT_RACK
 
 # Initialize variables for the command options

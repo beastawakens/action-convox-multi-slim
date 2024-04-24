@@ -9,7 +9,7 @@ then
   echo "Release must either be passed as input or set by running a build step"
   exit 1
 else
-  echo "Promoting Release $RELEASE"
+  echo "Promoting Release $RELEASE for $INPUT_APP on $INPUT_RACK"
   export CONVOX_RACK=$INPUT_RACK
   convox releases promote $RELEASE --app $INPUT_APP --wait
 fi

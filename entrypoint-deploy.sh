@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "Deploying"
+echo "Deploying $INPUT_APP to $INPUT_RACK"
 if [ -n "$INPUT_PASSWORD" ]
 then
     export CONVOX_PASSWORD=$INPUT_PASSWORD
