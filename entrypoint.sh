@@ -23,11 +23,17 @@ case "$value" in
   "login")
     /entrypoint-login.sh
     ;;
+  "login-user")
+    /entrypoint-login-user.sh
+    ;;
   "promote")
     /entrypoint-promote.sh
     ;;
   "run")
     /entrypoint-run.sh
+    ;;
+  "scale")
+    /entrypoint-scale.sh
     ;;
   *)
     echo "Invalid action chosen!"
