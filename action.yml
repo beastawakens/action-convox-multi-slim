@@ -58,4 +58,4 @@ outputs:
     description: Release ID of the created build
 runs:
   using: 'docker'
-  image: 'docker://beastawakens/action-convox-multi-slim:v1.0.12'
+  image: 'docker://beastawakens/action-convox-multi-slim:v1.0.13'
