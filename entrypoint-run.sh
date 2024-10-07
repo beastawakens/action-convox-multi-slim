@@ -1,4 +1,6 @@
 #!/bin/sh
+set -x
+
 if [ -n "$INPUT_RELEASE" ]
 then
  export RELEASE=$INPUT_RELEASE
