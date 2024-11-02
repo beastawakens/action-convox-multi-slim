@@ -11,6 +11,6 @@ then
 else
   echo "Finding first release with description $DESCRIPTION for $INPUT_APP on $INPUT_RACK"
   export CONVOX_RACK=$INPUT_RACK
-  convox releases $RELEASE --app $INPUT_APP --limit 100 --wait | grep $DESCRIPTION | awk 'NR==1 {print $1}'
+  convox releases $RELEASE --app $INPUT_APP --limit 100 | grep $DESCRIPTION | awk 'NR==1 {print $1}'
 fi
 
