@@ -20,6 +20,9 @@ case "$value" in
   "destroy")
     /entrypoint-destroy.sh
     ;;
+  "find-release")
+    /entrypoint-find-release.sh
+    ;;
   "login")
     /entrypoint-login.sh
     ;;
