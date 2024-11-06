@@ -11,6 +11,8 @@ then
 else
   echo "Finding first release with description $DESCRIPTION for $INPUT_APP on $INPUT_RACK"
   export CONVOX_RACK=$INPUT_RACK
-  convox releases $RELEASE --app $INPUT_APP --limit 100 | grep $DESCRIPTION | awk 'NR==1 {print $1}'
+  release=$(convox releases $RELEASE --app $INPUT_APP --limit 100 | grep $DESCRIPTION | awk 'NR==1 {print $1}')
 fi
 
+echo "RELEASE=$release" >> $GITHUB_OUTPUT
+echo "RELEASE=$release" >> $GITHUB_ENV
