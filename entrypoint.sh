@@ -23,6 +23,9 @@ case "$value" in
   "find-release")
     /entrypoint-find-release.sh
     ;;
+  "get-scale")
+    /entrypoint-get-scale.sh
+    ;;
   "login")
     /entrypoint-login.sh
     ;;
