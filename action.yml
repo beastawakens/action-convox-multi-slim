@@ -58,12 +58,16 @@ inputs:
 outputs:
   release:
     description: Release ID of the created build
+  desired:
+    description: Count of desired instances
   running:
     description: Count of running instances
   cpu:
     description: CPU scale value
   memory:
     description: Memory scale value
+  scaling_event:
+    description: Boolean value to indicate if a scaling event is in progress
 runs:
   using: 'docker'
-  image: 'docker://beastawakens/action-convox-multi-slim:v1.0.21'
+  image: 'docker://beastawakens/action-convox-multi-slim:v1.0.22'
