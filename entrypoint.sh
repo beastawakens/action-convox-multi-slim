@@ -35,6 +35,9 @@ case "$value" in
   "promote")
     /entrypoint-promote.sh
     ;;
+  "rack-param")
+    /entrypoint-rack-param.sh
+    ;;
   "run")
     /entrypoint-run.sh
     ;;

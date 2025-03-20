@@ -19,6 +19,7 @@ inputs:
       - login
       - login-user
       - promote
+      - rack-param
       - run
       - scale
   password:
@@ -46,6 +47,10 @@ inputs:
   manifest:
     description: Use a custom path for your convox.yml
     required: false
+  param-name:
+    description: Name of the parameter to set
+  param-value:
+    description: Value of the parameter to set
   release:
     description: ID of the release to promote. Only needed if you have not run a build step first or you wish to override the release id from the build
     required: false
@@ -70,4 +75,4 @@ outputs:
     description: Boolean value to indicate if a scaling event is in progress
 runs:
   using: 'docker'
-  image: 'docker://beastawakens/action-convox-multi-slim:v1.0.22'
+  image: 'docker://beastawakens/action-convox-multi-slim:v1.0.23'
