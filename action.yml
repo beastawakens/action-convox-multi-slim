@@ -14,6 +14,7 @@ inputs:
       - create
       - deploy
       - destroy
+      - env-set
       - find-release
       - get-scale
       - login
@@ -60,6 +61,8 @@ inputs:
     description: The command to be run
   count:
     description: The number of instances to scale to
+  env:
+    description: Environment variables in the form 'key1=value1 key2=value2'
 outputs:
   release:
     description: Release ID of the created build
