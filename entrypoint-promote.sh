@@ -1,5 +1,5 @@
 #!/bin/sh
-#!/bin/sh
+
 if [ -n "$INPUT_RELEASE" ]
 then
  export RELEASE=$INPUT_RELEASE

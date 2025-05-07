@@ -1,5 +1,5 @@
 #!/bin/sh
-#!/bin/sh
+
 if [ -n "$INPUT_DESCRIPTION" ]
 then
  export DESCRIPTION=$INPUT_DESCRIPTION
