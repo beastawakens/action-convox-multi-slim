@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "Migrating $INPUT_APP from $INPUT_RACK to $INPUT_DESTINATION_APP on $INPUT_DESTINATION_RACK"
+echo "Migrating $INPUT_APP from $INPUT_RACK to $INPUT_DESTINATIONAPP on $INPUT_DESTINATIONRACK"
 export CONVOX_RACK=$INPUT_RACK
 
 build=$(convox builds --app $INPUT_APP | grep complete | awk 'NR==1{print $1}')
@@ -10,7 +10,7 @@ then
   exit 1
 fi
 
-release=$(convox builds export $build --app $INPUT_APP | convox builds import --app $INPUT_DESTINATION_APP --rack $INPUT_DESTINATION_RACK)
+release=$(convox builds export $build --app $INPUT_APP | convox builds import --app $INPUT_DESTINATIONAPP --rack $INPUT_DESTINATIONRACK)
 
 if [ -z "$release" ]
 then

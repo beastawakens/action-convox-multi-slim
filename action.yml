@@ -35,9 +35,9 @@ inputs:
     description: Convox Rack name
   app:
     description: Convox app name
-  destination-app:
+  destinationApp:
     description: Convox destination app name for build migration
-  destination-rack:
+  destinationRack:
     description: Convox destination rack name for build migration
   description:
     description: Convox build description
@@ -48,9 +48,9 @@ inputs:
   manifest:
     description: Use a custom path for your convox.yml
     required: false
-  param-name:
+  paramName:
     description: Name of the parameter to set
-  param-value:
+  paramValue:
     description: Value of the parameter to set
   release:
     description: ID of the release to promote. Only needed if you have not run a build step first or you wish to override the release id from the build
@@ -78,4 +78,4 @@ outputs:
     description: Boolean value to indicate if a scaling event is in progress
 runs:
   using: 'docker'
-  image: 'docker://beastawakens/action-convox-multi-slim:v1.0.29'
+  image: 'docker://beastawakens/action-convox-multi-slim:v1.0.30'
