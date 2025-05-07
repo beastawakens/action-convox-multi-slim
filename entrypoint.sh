@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Make sure all environment variables are exported
+set -a
+
 # Get the value of the environment variable
 value=$INPUT_ACTION
 
