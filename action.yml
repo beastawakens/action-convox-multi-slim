@@ -17,6 +17,7 @@ inputs:
       - env-set
       - find-release
       - get-scale
+      - get-rack-param
       - login
       - login-user
       - promote
@@ -49,7 +50,7 @@ inputs:
     description: Use a custom path for your convox.yml
     required: false
   paramName:
-    description: Name of the parameter to set
+    description: Name of the parameter to get or set
   paramValue:
     description: Value of the parameter to set
   release:
