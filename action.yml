@@ -75,6 +75,8 @@ outputs:
     description: CPU scale value
   memory:
     description: Memory scale value
+  param_value:
+    description: Rack parameter value
   scaling_event:
     description: Boolean value to indicate if a scaling event is in progress
 runs:
