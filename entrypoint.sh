@@ -37,6 +37,9 @@ case "$value" in
   "get-scale")
     /entrypoint-get-scale.sh
     ;;
+  "get-rack-param")
+    /entrypoint-get-rack-param.sh
+    ;;
   "login")
     /entrypoint-login.sh
     ;;
