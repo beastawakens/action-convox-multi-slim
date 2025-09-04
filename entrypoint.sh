@@ -52,6 +52,9 @@ case "$value" in
   "rack-param")
     /entrypoint-rack-param.sh
     ;;
+  "rollback")
+    /entrypoint-rollback.sh
+    ;;
   "run")
     /entrypoint-run.sh
     ;;
