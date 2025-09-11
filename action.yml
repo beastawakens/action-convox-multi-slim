@@ -22,6 +22,7 @@ inputs:
       - login-user
       - promote
       - rack-param
+      - rollback
       - run
       - scale
   password:
