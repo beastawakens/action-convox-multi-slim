@@ -81,4 +81,4 @@ outputs:
     description: Boolean value to indicate if a scaling event is in progress
 runs:
   using: 'docker'
-  image: 'docker://beastawakens/action-convox-multi-slim:v1.0.35'
+  image: 'docker://beastawakens/action-convox-multi-slim:v1.0.36'
