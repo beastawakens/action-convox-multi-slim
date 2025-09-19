@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 # Make sure all environment variables are exported
 set -a

@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 echo "Migrating $INPUT_APP from $INPUT_RACK to $INPUT_DESTINATIONAPP on $INPUT_DESTINATIONRACK"
 export CONVOX_RACK=$INPUT_RACK
 

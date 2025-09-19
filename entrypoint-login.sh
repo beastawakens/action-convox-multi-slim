@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 echo "Setting login credentials"
 echo "CONVOX_PASSWORD=$INPUT_PASSWORD" >> $GITHUB_ENV
 if [ -n "$INPUT_HOST" ]

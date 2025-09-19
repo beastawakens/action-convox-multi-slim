@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 echo "Setting login credentials for a user. Be careful with this action!"
 if [ -n "$INPUT_HOST" ]
 then
