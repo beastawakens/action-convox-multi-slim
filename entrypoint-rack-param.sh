@@ -1,5 +1,5 @@
 #!/bin/sh
-set -x
+set -ex
 
 export CONVOX_RACK=$INPUT_RACK
 

@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 echo "Building $INPUT_APP on $INPUT_RACK"
 export CONVOX_RACK=$INPUT_RACK
 

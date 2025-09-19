@@ -1,5 +1,5 @@
 #!/bin/sh
-set -x
+set -ex
 
 if [ -n "$INPUT_RELEASE" ]
 then
