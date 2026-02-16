@@ -4,11 +4,6 @@ set -e
 # Make sure all environment variables are exported
 set -a
 
-# Make sure all INPUT_* environment variables are exported
-env | grep ^INPUT_ | while read -r line; do
-  export "$line"
-done
-
 # Get the value of the environment variable
 value=$INPUT_ACTION
 
@@ -63,6 +58,7 @@ case "$value" in
     /entrypoint-scale.sh
     ;;
   *)
-    echo "Invalid action chosen!"
+    echo "Invalid action chosen: '$value'"
+    exit 1
     ;;
 esac

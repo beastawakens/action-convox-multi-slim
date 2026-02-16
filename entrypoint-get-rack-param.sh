@@ -1,10 +1,11 @@
 #!/bin/sh
-set -ex
+set -e
+. /lib/common.sh
 
-export CONVOX_RACK=$INPUT_RACK
+require_input "INPUT_PARAMNAME" "$INPUT_PARAMNAME"
+set_rack
 
 echo "Retrieving $INPUT_PARAMNAME for $CONVOX_RACK"
 output=$(convox rack params | awk -v param="$INPUT_PARAMNAME" '$1 == param {print $2}')
 
-echo "PARAM_VALUE=$output" >> $GITHUB_OUTPUT
-echo "PARAM_VALUE=$output" >> $GITHUB_ENV
+write_output "PARAM_VALUE" "$output"

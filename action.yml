@@ -66,20 +66,26 @@ inputs:
   env:
     description: Environment variables in the form 'key1=value1 key2=value2'
 outputs:
-  release:
+  RELEASE:
     description: Release ID of the created build
-  desired:
+  DESIRED:
     description: Count of desired instances
-  running:
+  RUNNING:
     description: Count of running instances
-  cpu:
+  CPU:
     description: CPU scale value
-  memory:
+  MEMORY:
     description: Memory scale value
-  param_value:
+  PARAM_VALUE:
     description: Rack parameter value
-  scaling_event:
+  SCALING_EVENT:
     description: Boolean value to indicate if a scaling event is in progress
+  RUNNING_PROCESSES:
+    description: Count of running processes for the service
+  PENDING_PROCESSES:
+    description: Count of pending processes for the service
+  UNHEALTHY_PROCESSES:
+    description: Count of unhealthy processes for the service
 runs:
   using: 'docker'
-  image: 'docker://beastawakens/action-convox-multi-slim:v1.0.39'
+  image: 'docker://beastawakens/action-convox-multi-slim:v2.0.0-beta1'

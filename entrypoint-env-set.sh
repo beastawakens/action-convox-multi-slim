@@ -1,5 +1,12 @@
 #!/bin/sh
 set -e
-echo "Setting $INPUT_ENV for app $INPUT_APP on $INPUT_RACK"
-export CONVOX_RACK=$INPUT_RACK
-convox env set -a $INPUT_APP --rack $INPUT_RACK $INPUT_ENV
+. /lib/common.sh
+
+require_input "INPUT_APP" "$INPUT_APP"
+require_input "INPUT_ENV" "$INPUT_ENV"
+set_rack
+
+echo "Setting environment variables for app $INPUT_APP on $CONVOX_RACK"
+# shellcheck disable=SC2086
+# INPUT_ENV is intentionally word-split (key=val pairs)
+convox env set -a "$INPUT_APP" --rack "$CONVOX_RACK" $INPUT_ENV

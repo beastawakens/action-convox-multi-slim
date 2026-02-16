@@ -1,26 +1,19 @@
 #!/bin/sh
 set -e
-echo "Deploying $INPUT_APP to $INPUT_RACK"
-if [ -n "$INPUT_PASSWORD" ]
-then
-    export CONVOX_PASSWORD=$INPUT_PASSWORD
-fi
-if [ -n "$INPUT_HOST" ]
-then
-    export CONVOX_HOST=$INPUT_HOST
-fi
-export CONVOX_RACK=$INPUT_RACK
+. /lib/common.sh
 
-# Initialize variables for the command options
-CACHED_COMMAND=""
-MANIFEST_COMMAND=""
+# Validate required inputs
+require_input "INPUT_APP" "$INPUT_APP"
+set_password
+set_host
+set_rack
 
-if [ "$INPUT_CACHED" = "false" ]; then
-    CACHED_COMMAND="--no-cache"
-fi
+echo "Deploying $INPUT_APP to $CONVOX_RACK"
 
-if [ "$INPUT_MANIFEST" != "" ]; then
-    MANIFEST_COMMAND="-m $INPUT_MANIFEST"
-fi
+# Build flag arguments
+CACHED_COMMAND=$(build_cache_flag)
+MANIFEST_COMMAND=$(build_manifest_flag)
 
-convox deploy --app $INPUT_APP --description "$INPUT_DESCRIPTION" $CACHED_COMMAND $MANIFEST_COMMAND --wait
+# shellcheck disable=SC2086
+# CACHED_COMMAND/MANIFEST_COMMAND are intentionally word-split (may be empty)
+convox deploy --app "$INPUT_APP" --description "$INPUT_DESCRIPTION" $CACHED_COMMAND $MANIFEST_COMMAND --wait

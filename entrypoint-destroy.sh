@@ -1,5 +1,9 @@
 #!/bin/sh
 set -e
-echo "Destroying App $INPUT_APP on $INPUT_RACK"
-export CONVOX_RACK=$INPUT_RACK
-convox apps delete $INPUT_APP --rack $INPUT_RACK --wait
+. /lib/common.sh
+
+require_input "INPUT_APP" "$INPUT_APP"
+set_rack
+
+echo "Destroying App $INPUT_APP on $CONVOX_RACK"
+convox apps delete "$INPUT_APP" --rack "$CONVOX_RACK" --wait

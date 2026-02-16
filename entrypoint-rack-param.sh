@@ -1,7 +1,10 @@
 #!/bin/sh
-set -ex
+set -e
+. /lib/common.sh
 
-export CONVOX_RACK=$INPUT_RACK
+require_input "INPUT_PARAMNAME" "$INPUT_PARAMNAME"
+require_input "INPUT_PARAMVALUE" "$INPUT_PARAMVALUE"
+set_rack
 
-echo "Running rack params set on $INPUT_RACK for param $INPUT_PARAMNAME"
-convox rack params set $INPUT_PARAMNAME=$INPUT_PARAMVALUE
+echo "Running rack params set on $CONVOX_RACK for param $INPUT_PARAMNAME"
+convox rack params set "$INPUT_PARAMNAME=$INPUT_PARAMVALUE"

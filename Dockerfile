@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-LABEL version="v1.0.39"
+LABEL version="v2.0.0-beta1"
 LABEL repository="https://github.com/beastawakens/action-convox-multi-slim"
 LABEL homepage="https://convox.com/"
 LABEL maintainer="Beast Awakens <me@beastawakens.com>"
@@ -17,4 +17,5 @@ RUN curl -L https://github.com/convox/convox/releases/latest/download/convox-lin
     && chmod 755 /usr/local/bin/convox
 
 COPY entrypoint* /
+COPY lib/ /lib/
 ENTRYPOINT ["/entrypoint.sh"]

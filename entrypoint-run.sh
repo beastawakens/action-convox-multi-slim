@@ -1,19 +1,18 @@
 #!/bin/sh
-set -ex
+set -e
+. /lib/common.sh
 
-if [ -n "$INPUT_RELEASE" ]
-then
-  export RELEASE=$INPUT_RELEASE
-fi
-
-export CONVOX_RACK=$INPUT_RACK
+require_input "INPUT_APP" "$INPUT_APP"
+require_input "INPUT_SERVICE" "$INPUT_SERVICE"
+require_input "INPUT_COMMAND" "$INPUT_COMMAND"
+set_rack
+resolve_release ""  # optional — no arg means not required
 
 # Build the convox run command arguments
-CONVOX_ARGS="--app $INPUT_APP --rack $INPUT_RACK --timeout 3600"
-if [ -n "$RELEASE" ]
-then
-  echo "Running command on $INPUT_SERVICE - $INPUT_APP for the release $RELEASE"
-  CONVOX_ARGS="--release $RELEASE $CONVOX_ARGS"
+CONVOX_ARGS="--app \"$INPUT_APP\" --rack \"$CONVOX_RACK\" --timeout 3600"
+if [ -n "$RELEASE" ]; then
+  echo "Running command on $INPUT_SERVICE - $INPUT_APP for release $RELEASE"
+  CONVOX_ARGS="--release \"$RELEASE\" $CONVOX_ARGS"
 else
   echo "Running command on $INPUT_SERVICE - $INPUT_APP for the latest release"
 fi

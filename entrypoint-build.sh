@@ -1,26 +1,24 @@
 #!/bin/sh
 set -e
-echo "Building $INPUT_APP on $INPUT_RACK"
-export CONVOX_RACK=$INPUT_RACK
+. /lib/common.sh
 
-# Initialize variables for the command options
-CACHED_COMMAND=""
-MANIFEST_COMMAND=""
+# Validate required inputs
+require_input "INPUT_APP" "$INPUT_APP"
+set_rack
 
-if [ "$INPUT_CACHED" = "false" ]; then
-    CACHED_COMMAND="--no-cache"
-fi
+echo "Building $INPUT_APP on $CONVOX_RACK"
 
-if [ "$INPUT_MANIFEST" != "" ]; then
-    MANIFEST_COMMAND="-m $INPUT_MANIFEST"
-fi
+# Build flag arguments
+CACHED_COMMAND=$(build_cache_flag)
+MANIFEST_COMMAND=$(build_manifest_flag)
 
-release=$(convox build --app $INPUT_APP --description "$INPUT_DESCRIPTION" --id $CACHE_COMMAND $MANIFEST_COMMAND)
+# shellcheck disable=SC2086
+# CACHED_COMMAND/MANIFEST_COMMAND are intentionally word-split (may be empty)
+release=$(convox build --app "$INPUT_APP" --description "$INPUT_DESCRIPTION" --id $CACHED_COMMAND $MANIFEST_COMMAND)
 
-if [ -z "$release" ]
-then
-  echo "Build failed"
+if [ -z "$release" ]; then
+  echo "::error::Build failed — convox build returned no release ID"
   exit 1
 fi
-echo "RELEASE=$release" >> $GITHUB_OUTPUT
-echo "RELEASE=$release" >> $GITHUB_ENV
+
+write_output "RELEASE" "$release"
