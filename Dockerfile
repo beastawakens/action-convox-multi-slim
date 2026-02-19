@@ -10,7 +10,10 @@ LABEL "com.github.actions.description"="Perform multiple convox commands"
 LABEL "com.github.actions.icon"="cloud"
 LABEL "com.github.actions.color"="blue"
 
-RUN apt-get -qq update && apt-get -qq -y install curl
+# hadolint ignore=DL3008
+RUN apt-get -qq update \
+    && apt-get -qq -y --no-install-recommends install curl \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN curl -L https://github.com/convox/convox/releases/latest/download/convox-linux -o /tmp/convox \
     && mv /tmp/convox /usr/local/bin/convox \
