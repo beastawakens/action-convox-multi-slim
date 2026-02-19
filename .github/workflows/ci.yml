@@ -16,6 +16,8 @@ jobs:
 
       - name: ShellCheck
         uses: ludeeus/action-shellcheck@2.0.0
+        env:
+          SHELLCHECK_OPTS: '-x --source-path=${{ github.workspace }}'
         with:
           scandir: '.'
           additional_files: 'lib/common.sh'

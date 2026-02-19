@@ -15,6 +15,7 @@ if [ -z "$DESCRIPTION" ]; then
 fi
 
 echo "Finding first release with description '$DESCRIPTION' for $INPUT_APP on $CONVOX_RACK"
-release=$(convox releases "$RELEASE" --app "$INPUT_APP" --limit 100 | grep "$DESCRIPTION" | awk 'NR==1 {print $1}')
+# shellcheck disable=SC2153 # RELEASE is an output name, not a misspelling of 'release'
+release=$(convox releases --app "$INPUT_APP" --limit 100 | grep "$DESCRIPTION" | awk 'NR==1 {print $1}')
 
 write_output "RELEASE" "$release"
