@@ -27,11 +27,11 @@ case "$value" in
   "env-set")
     /entrypoint-env-set.sh
     ;;
-  "find-release")
-    /entrypoint-find-release.sh
-    ;;
   "find-build")
     /entrypoint-find-build.sh
+    ;;
+  "find-release")
+    /entrypoint-find-release.sh
     ;;
   "get-scale")
     /entrypoint-get-scale.sh
