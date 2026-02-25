@@ -30,6 +30,9 @@ case "$value" in
   "find-release")
     /entrypoint-find-release.sh
     ;;
+  "find-build")
+    /entrypoint-find-build.sh
+    ;;
   "get-scale")
     /entrypoint-get-scale.sh
     ;;
