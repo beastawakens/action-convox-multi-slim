@@ -1,10 +1,10 @@
 # action-convox-multi-slim
 
-Multiple Convox CLI commands in one slim Docker-based GitHub Action. Instead of using separate actions for each Convox operation, this single action supports 16 commands through the `action` input, reducing workflow boilerplate.
+Multiple Convox CLI commands in one slim Docker-based GitHub Action. Instead of using separate actions for each Convox operation, this single action supports 17 commands through the `action` input, reducing workflow boilerplate.
 
 ## Supported Actions
 
-`login` · `login-user` · `build` · `build-migrate` · `deploy` · `create` · `destroy` · `promote` · `rollback` · `run` · `scale` · `get-scale` · `env-set` · `find-release` · `get-rack-param` · `rack-param`
+`login` · `login-user` · `build` · `build-migrate` · `deploy` · `create` · `destroy` · `promote` · `rollback` · `run` · `scale` · `get-scale` · `env-set` · `find-build` · `find-release` · `get-rack-param` · `rack-param`
 
 ## Quick Start
 
@@ -61,6 +61,7 @@ Multiple Convox CLI commands in one slim Docker-based GitHub Action. Instead of 
 | Output | Description | Set by |
 |--------|-------------|--------|
 | `RELEASE` | Release ID of the created build | `build`, `build-migrate`, `find-release` |
+| `BUILD` | Build ID matching the description | `find-build` |
 | `DESIRED` | Count of desired instances | `get-scale` |
 | `RUNNING` | Count of running instances | `get-scale` |
 | `CPU` | CPU scale value | `get-scale` |
@@ -248,6 +249,20 @@ Sets environment variables on an app.
     rack: my-rack
     app: my-app
     env: "KEY1=value1 KEY2=value2"
+```
+
+### find-build
+
+Finds the first build matching a description.
+
+```yaml
+- uses: beastawakens/action-convox-multi-slim@v1
+  id: found
+  with:
+    action: find-build
+    rack: my-rack
+    app: my-app
+    description: "target-description"
 ```
 
 ### find-release
