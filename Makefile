@@ -14,7 +14,7 @@ endif
 	@echo "$(VERSION)" > VERSION
 	sed -i'.bak' 's|\(image:.*:\)[^'\'']*|\1$(VERSION)|' action.yml
 	sed -i'.bak' 's|\(LABEL version=\)"[^"]*"|\1"$(VERSION)"|' Dockerfile
-	git commit -am "Release $(VERSION)"
+	git diff --quiet || git commit -am "Release $(VERSION)"
 	docker buildx build --platform linux/amd64 --push . -t $(DOCKER_REPO):$(VERSION)
 	git tag $(VERSION) -s -m $(VERSION) --force
 	git push origin refs/tags/$(VERSION) --force
