@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-LABEL version="v2.0.0-beta1"
+LABEL version="v2.0.0"
 LABEL repository="https://github.com/beastawakens/action-convox-multi-slim"
 LABEL homepage="https://convox.com/"
 LABEL maintainer="Beast Awakens <me@beastawakens.com>"
