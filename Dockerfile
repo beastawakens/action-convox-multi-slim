@@ -12,7 +12,7 @@ LABEL "com.github.actions.color"="blue"
 
 # hadolint ignore=DL3008
 RUN apt-get -qq update \
-    && apt-get -qq -y --no-install-recommends install curl \
+    && apt-get -qq -y --no-install-recommends install ca-certificates curl \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -L https://github.com/convox/convox/releases/latest/download/convox-linux -o /tmp/convox \
