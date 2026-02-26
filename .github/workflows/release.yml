@@ -1,20 +1,41 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  pull_request:
+    branches: [main]
+    types: [closed]
 
 permissions:
   contents: write
 
 jobs:
-  build:
+  compute-version:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Release
-        uses: softprops/action-gh-release@v2
-        with:
-          generate_release_notes: true
+
+      - name: Compute next version
+        id: version
+        run: |
+          CURRENT=$(cat VERSION)
+          BASE=${CURRENT#v}
+          MAJOR=$(echo "$BASE" | cut -d. -f1)
+          MINOR=$(echo "$BASE" | cut -d. -f2)
+          MINOR=$((MINOR + 1))
+          NEXT="v${MAJOR}.${MINOR}.0"
+          echo "version=$NEXT" >> "$GITHUB_OUTPUT"
+          echo "Bumping $CURRENT -> $NEXT"
+
+  release:
+    needs: compute-version
+    uses: ./.github/workflows/build-and-release.yml
+    with:
+      version: ${{ needs.compute-version.outputs.version }}
+      commit-message: "Release ${{ needs.compute-version.outputs.version }}"
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
