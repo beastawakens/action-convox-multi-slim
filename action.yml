@@ -95,4 +95,4 @@ outputs:
     description: Count of unhealthy processes for the service
 runs:
   using: 'docker'
-  image: 'docker://beastawakens/action-convox-multi-slim:v2.0.6'
+  image: 'docker://beastawakens/action-convox-multi-slim:v2.0.7'
