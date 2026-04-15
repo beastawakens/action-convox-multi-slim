@@ -47,6 +47,7 @@ Multiple Convox CLI commands in one slim Docker-based GitHub Action. Instead of 
 | `destinationRack` | Destination rack name | For `build-migrate` | — |
 | `description` | Build description | No | — |
 | `cached` | Use Docker cache during build | No | `true` |
+| `external` | Build locally and push to rack registry (bypasses LB upload) | No | `false` |
 | `manifest` | Custom path for convox.yml | No | — |
 | `paramName` | Rack parameter name | For `get-rack-param`, `rack-param` | — |
 | `paramValue` | Rack parameter value | For `rack-param` | — |
@@ -110,6 +111,7 @@ Builds the app and returns the release ID.
     app: my-app
     description: "Build ${{ github.sha }}"
     cached: true          # optional, default true
+    external: false       # optional, default false
     manifest: convox.yml  # optional
 ```
 
@@ -124,6 +126,7 @@ Builds and deploys in a single operation (waits for completion).
     rack: my-rack
     app: my-app
     description: "Deploy ${{ github.sha }}"
+    external: false       # optional, default false
 ```
 
 ### build-migrate

@@ -11,10 +11,11 @@ echo "Building $INPUT_APP on $CONVOX_RACK"
 # Build flag arguments
 CACHED_COMMAND=$(build_cache_flag)
 MANIFEST_COMMAND=$(build_manifest_flag)
+EXTERNAL_COMMAND=$(build_external_flag)
 
 # shellcheck disable=SC2086
-# CACHED_COMMAND/MANIFEST_COMMAND are intentionally word-split (may be empty)
-release=$(convox build --app "$INPUT_APP" --description "$INPUT_DESCRIPTION" --id $CACHED_COMMAND $MANIFEST_COMMAND)
+# CACHED_COMMAND/MANIFEST_COMMAND/EXTERNAL_COMMAND are intentionally word-split (may be empty)
+release=$(convox build --app "$INPUT_APP" --description "$INPUT_DESCRIPTION" --id $CACHED_COMMAND $MANIFEST_COMMAND $EXTERNAL_COMMAND)
 
 if [ -z "$release" ]; then
   echo "::error::Build failed — convox build returned no release ID"

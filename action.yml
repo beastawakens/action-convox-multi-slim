@@ -48,6 +48,10 @@ inputs:
     description: Whether to utilise the docker cache during the build
     required: false
     default: true
+  external:
+    description: Build the image locally and push directly to the rack registry, bypassing the load balancer upload
+    required: false
+    default: false
   manifest:
     description: Use a custom path for your convox.yml
     required: false
@@ -91,4 +95,4 @@ outputs:
     description: Count of unhealthy processes for the service
 runs:
   using: 'docker'
-  image: 'docker://beastawakens/action-convox-multi-slim:v2.0.5'
+  image: 'docker://beastawakens/action-convox-multi-slim:v2.0.6'

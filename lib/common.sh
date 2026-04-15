@@ -75,6 +75,16 @@ build_cache_flag() {
 }
 
 # ---------------------------------------------------------------------------
+# build_external_flag — Return "--external" if INPUT_EXTERNAL is "true"
+#   Usage: external_flag=$(build_external_flag)
+# ---------------------------------------------------------------------------
+build_external_flag() {
+  if [ "$INPUT_EXTERNAL" = "true" ]; then
+    echo "--external"
+  fi
+}
+
+# ---------------------------------------------------------------------------
 # build_manifest_flag — Return "-m <path>" if INPUT_MANIFEST is set
 #   Usage: manifest_flag=$(build_manifest_flag)
 # ---------------------------------------------------------------------------

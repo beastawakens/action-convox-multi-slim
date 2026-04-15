@@ -52,6 +52,7 @@ Dockerfile             — Container image based on Ubuntu 22.04 + Convox CLI
 | `require_input NAME VALUE` | Fails with error if value is empty |
 | `write_output KEY VALUE` | Writes to both `$GITHUB_OUTPUT` and `$GITHUB_ENV` |
 | `build_cache_flag` | Returns `--no-cache` if `INPUT_CACHED=false` |
+| `build_external_flag` | Returns `--external` if `INPUT_EXTERNAL=true` |
 | `build_manifest_flag` | Returns `-m <path>` if `INPUT_MANIFEST` is set |
 | `resolve_release [required]` | Sets `RELEASE` from `INPUT_RELEASE` or env |
 
@@ -61,9 +62,9 @@ Dockerfile             — Container image based on Ubuntu 22.04 + Convox CLI
 |--------|----------------|-----------------|---------|
 | `login` | `password` | `host` | — |
 | `login-user` | `token` | `host` | — |
-| `build` | `rack`, `app` | `description`, `cached`, `manifest` | `RELEASE` |
+| `build` | `rack`, `app` | `description`, `cached`, `external`, `manifest` | `RELEASE` |
 | `build-migrate` | `rack`, `app`, `destinationApp`, `destinationRack` | — | `RELEASE` |
-| `deploy` | `rack`, `app` | `password`, `host`, `description`, `cached`, `manifest` | — |
+| `deploy` | `rack`, `app` | `password`, `host`, `description`, `cached`, `external`, `manifest` | — |
 | `create` | `rack`, `app` | — | — |
 | `destroy` | `rack`, `app` | — | — |
 | `promote` | `rack`, `app`, `release` | — | — |
@@ -81,6 +82,8 @@ Dockerfile             — Container image based on Ubuntu 22.04 + Convox CLI
 Versions are managed via the Makefile: `VERSION=v1.x.x make release`. This updates the Docker image tag in `action.yml` and the version label in `Dockerfile`, builds/pushes the image, and creates a signed git tag.
 
 ### Testing
+
+Follow TDD (red/green/refactor): always write failing tests first, then implement the code to make them pass, then refactor if needed.
 
 Run ShellCheck locally: `shellcheck entrypoint*.sh lib/common.sh`
 Run tests: `bats tests/`

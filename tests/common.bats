@@ -139,6 +139,24 @@ teardown() {
 }
 
 # ---------------------------------------------------------------------------
+# build_external_flag
+# ---------------------------------------------------------------------------
+
+@test "build_external_flag returns --external when external is true" {
+  export INPUT_EXTERNAL="true"
+  . lib/common.sh
+  result=$(build_external_flag)
+  [ "$result" = "--external" ]
+}
+
+@test "build_external_flag returns empty when external is false" {
+  export INPUT_EXTERNAL="false"
+  . lib/common.sh
+  result=$(build_external_flag)
+  [ -z "$result" ]
+}
+
+# ---------------------------------------------------------------------------
 # resolve_release
 # ---------------------------------------------------------------------------
 
