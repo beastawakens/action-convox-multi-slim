@@ -1,6 +1,7 @@
 #!/bin/sh
 # common.sh — Shared utility functions for all entrypoint scripts.
-# Source this file at the top of each entrypoint: . /lib/common.sh
+# Source this file at the top of each entrypoint:
+#   . "$(cd "$(dirname "$0")" && pwd)/lib/common.sh"
 
 # Default Convox console host
 DEFAULT_CONVOX_HOST="console.convox.com"

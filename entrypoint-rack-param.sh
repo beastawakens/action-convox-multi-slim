@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-. /lib/common.sh
+. "$(cd "$(dirname "$0")" && pwd)/lib/common.sh"
 
 require_input "INPUT_PARAMNAME" "$INPUT_PARAMNAME"
 require_input "INPUT_PARAMVALUE" "$INPUT_PARAMVALUE"

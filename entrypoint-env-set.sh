@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-. /lib/common.sh
+. "$(cd "$(dirname "$0")" && pwd)/lib/common.sh"
 
 require_input "INPUT_APP" "$INPUT_APP"
 require_input "INPUT_ENV" "$INPUT_ENV"

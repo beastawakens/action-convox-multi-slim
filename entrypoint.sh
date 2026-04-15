@@ -1,6 +1,10 @@
 #!/bin/sh
 set -e
 
+# Resolve script directory — supports both composite actions ($GITHUB_ACTION_PATH)
+# and local execution (dirname of this script).
+ACTION_DIR="${GITHUB_ACTION_PATH:-$(cd "$(dirname "$0")" && pwd)}"
+
 # Make sure all environment variables are exported
 set -a
 
@@ -10,55 +14,55 @@ value=$INPUT_ACTION
 # Perform switch case based on the value
 case "$value" in
   "build")
-    /entrypoint-build.sh
+    "$ACTION_DIR/entrypoint-build.sh"
     ;;
   "build-migrate")
-    /entrypoint-build-migrate.sh
+    "$ACTION_DIR/entrypoint-build-migrate.sh"
     ;;
   "create")
-    /entrypoint-create.sh
+    "$ACTION_DIR/entrypoint-create.sh"
     ;;
   "deploy")
-    /entrypoint-deploy.sh
+    "$ACTION_DIR/entrypoint-deploy.sh"
     ;;
   "destroy")
-    /entrypoint-destroy.sh
+    "$ACTION_DIR/entrypoint-destroy.sh"
     ;;
   "env-set")
-    /entrypoint-env-set.sh
+    "$ACTION_DIR/entrypoint-env-set.sh"
     ;;
   "find-build")
-    /entrypoint-find-build.sh
+    "$ACTION_DIR/entrypoint-find-build.sh"
     ;;
   "find-release")
-    /entrypoint-find-release.sh
+    "$ACTION_DIR/entrypoint-find-release.sh"
     ;;
   "get-scale")
-    /entrypoint-get-scale.sh
+    "$ACTION_DIR/entrypoint-get-scale.sh"
     ;;
   "get-rack-param")
-    /entrypoint-get-rack-param.sh
+    "$ACTION_DIR/entrypoint-get-rack-param.sh"
     ;;
   "login")
-    /entrypoint-login.sh
+    "$ACTION_DIR/entrypoint-login.sh"
     ;;
   "login-user")
-    /entrypoint-login-user.sh
+    "$ACTION_DIR/entrypoint-login-user.sh"
     ;;
   "promote")
-    /entrypoint-promote.sh
+    "$ACTION_DIR/entrypoint-promote.sh"
     ;;
   "rack-param")
-    /entrypoint-rack-param.sh
+    "$ACTION_DIR/entrypoint-rack-param.sh"
     ;;
   "rollback")
-    /entrypoint-rollback.sh
+    "$ACTION_DIR/entrypoint-rollback.sh"
     ;;
   "run")
-    /entrypoint-run.sh
+    "$ACTION_DIR/entrypoint-run.sh"
     ;;
   "scale")
-    /entrypoint-scale.sh
+    "$ACTION_DIR/entrypoint-scale.sh"
     ;;
   *)
     echo "Invalid action chosen: '$value'"

@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-. /lib/common.sh
+. "$(cd "$(dirname "$0")" && pwd)/lib/common.sh"
 
 require_input "INPUT_PASSWORD" "$INPUT_PASSWORD"
 set_host

@@ -94,5 +94,35 @@ outputs:
   UNHEALTHY_PROCESSES:
     description: Count of unhealthy processes for the service
 runs:
-  using: 'docker'
-  image: 'docker://beastawakens/action-convox-multi-slim:v2.0.7'
+  using: 'composite'
+  steps:
+    - name: Install convox CLI
+      shell: bash
+      run: |
+        CONVOX_VERSION=$(cat "$GITHUB_ACTION_PATH/CONVOX_VERSION")
+        curl -fsSL "https://github.com/convox/convox/releases/download/v${CONVOX_VERSION}/convox-linux" -o /tmp/convox
+        chmod 755 /tmp/convox
+        sudo mv /tmp/convox /usr/local/bin/convox
+    - name: Run convox action
+      shell: bash
+      run: bash "$GITHUB_ACTION_PATH/entrypoint.sh"
+      env:
+        INPUT_ACTION: ${{ inputs.action }}
+        INPUT_PASSWORD: ${{ inputs.password }}
+        INPUT_HOST: ${{ inputs.host }}
+        INPUT_TOKEN: ${{ inputs.token }}
+        INPUT_RACK: ${{ inputs.rack }}
+        INPUT_APP: ${{ inputs.app }}
+        INPUT_DESTINATIONAPP: ${{ inputs.destinationApp }}
+        INPUT_DESTINATIONRACK: ${{ inputs.destinationRack }}
+        INPUT_DESCRIPTION: ${{ inputs.description }}
+        INPUT_CACHED: ${{ inputs.cached }}
+        INPUT_EXTERNAL: ${{ inputs.external }}
+        INPUT_MANIFEST: ${{ inputs.manifest }}
+        INPUT_PARAMNAME: ${{ inputs.paramName }}
+        INPUT_PARAMVALUE: ${{ inputs.paramValue }}
+        INPUT_RELEASE: ${{ inputs.release }}
+        INPUT_SERVICE: ${{ inputs.service }}
+        INPUT_COMMAND: ${{ inputs.command }}
+        INPUT_COUNT: ${{ inputs.count }}
+        INPUT_ENV: ${{ inputs.env }}
