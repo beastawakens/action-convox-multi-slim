@@ -100,7 +100,7 @@ runs:
       shell: bash
       run: |
         CONVOX_VERSION=$(cat "$GITHUB_ACTION_PATH/CONVOX_VERSION")
-        curl -fsSL "https://github.com/convox/convox/releases/download/v${CONVOX_VERSION}/convox-linux" -o /tmp/convox
+        curl -fsSL "https://github.com/convox/convox/releases/download/${CONVOX_VERSION}/convox-linux" -o /tmp/convox
         chmod 755 /tmp/convox
         sudo mv /tmp/convox /usr/local/bin/convox
     - name: Run convox action
