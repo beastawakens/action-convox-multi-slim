@@ -68,16 +68,11 @@ jobs:
       version: ${{ needs.check-and-update.outputs.version }}
       commit-message: "Auto-update Convox CLI to ${{ needs.check-and-update.outputs.convox_version }} (${{ needs.check-and-update.outputs.version }})"
       convox-version: ${{ needs.check-and-update.outputs.convox_version }}
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
   summary:
     needs: [check-and-update, release]
     if: needs.check-and-update.outputs.update == 'true'
     runs-on: ubuntu-latest
-    env:
-      DOCKER_REPO: beastawakens/action-convox-multi-slim
     steps:
       - name: Summary
         run: |
@@ -85,4 +80,3 @@ jobs:
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "- **Convox version:** ${{ needs.check-and-update.outputs.convox_version }}" >> "$GITHUB_STEP_SUMMARY"
           echo "- **Action version:** ${{ needs.check-and-update.outputs.version }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "- **Docker image:** ${{ env.DOCKER_REPO }}:${{ needs.check-and-update.outputs.version }}" >> "$GITHUB_STEP_SUMMARY"

@@ -22,11 +22,6 @@ jobs:
           scandir: '.'
           additional_files: 'lib/common.sh'
 
-      - name: hadolint
-        uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: Dockerfile
-
   test:
     name: Test
     runs-on: ubuntu-latest
