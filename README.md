@@ -47,6 +47,7 @@ Multiple Convox CLI commands in one slim Docker-based GitHub Action. Instead of 
 | `destinationRack` | Destination rack name | For `build-migrate` | — |
 | `description` | Build description | No | — |
 | `cached` | Use Docker cache during build | No | `true` |
+| `errorOnZeroScale` | Fail `get-scale` when no running processes are found | No | `false` |
 | `external` | Build locally and push to rack registry (bypasses LB upload) | No | `false` |
 | `manifest` | Custom path for convox.yml | No | — |
 | `paramName` | Rack parameter name | For `get-rack-param`, `rack-param` | — |
@@ -226,6 +227,8 @@ Scales a service to a specific instance count.
 
 Retrieves current scale information and process status.
 
+By default, `get-scale` reports process counts even when there are zero running processes. Set `errorOnZeroScale: true` to make the step fail when `RUNNING_PROCESSES=0`.
+
 ```yaml
 - uses: beastawakens/action-convox-multi-slim@v1
   id: scale-info
@@ -234,6 +237,7 @@ Retrieves current scale information and process status.
     rack: my-rack
     app: my-app
     service: web
+    errorOnZeroScale: true  # optional, default false
 
 - run: |
     echo "Desired: ${{ steps.scale-info.outputs.DESIRED }}"

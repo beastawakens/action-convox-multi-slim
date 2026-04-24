@@ -201,3 +201,85 @@ teardown() {
   [ "$status" -eq 1 ]
   [[ "$output" == *"Invalid action"* ]]
 }
+
+# ---------------------------------------------------------------------------
+# entrypoint-get-scale.sh
+# ---------------------------------------------------------------------------
+
+setup_get_scale_stubs() {
+  setup_get_scale_stubs_with_ps "0" ""
+}
+
+setup_get_scale_stubs_with_ps() {
+  scale_running="$1"
+  ps_running_line="$2"
+  STUB_BIN_DIR=$(mktemp -d)
+  cat > "$STUB_BIN_DIR/convox" <<'EOF'
+#!/bin/sh
+if [ "$1" = "scale" ]; then
+  echo "SERVICE DESIRED RUNNING CPU MEMORY"
+  echo "web 1 __SCALE_RUNNING__ 256 512"
+  exit 0
+fi
+
+if [ "$1" = "ps" ]; then
+  echo "ID SERVICE STATUS RELEASE STARTED COMMAND"
+  __PS_RUNNING_LINE__
+  exit 0
+fi
+
+echo "unexpected convox command: $1" >&2
+exit 1
+EOF
+  sed -i.bak "s/__SCALE_RUNNING__/$scale_running/g" "$STUB_BIN_DIR/convox"
+  rm -f "$STUB_BIN_DIR/convox.bak"
+  if [ -n "$ps_running_line" ]; then
+    sed -i.bak "s|  __PS_RUNNING_LINE__|  echo \"$ps_running_line\"|g" "$STUB_BIN_DIR/convox"
+  else
+    sed -i.bak "s|  __PS_RUNNING_LINE__||g" "$STUB_BIN_DIR/convox"
+  fi
+  rm -f "$STUB_BIN_DIR/convox.bak"
+  chmod +x "$STUB_BIN_DIR/convox"
+  export PATH="$STUB_BIN_DIR:$PATH"
+}
+
+@test "get-scale does not error on zero running processes by default" {
+  setup_get_scale_stubs
+  export INPUT_APP="my-app"
+  export INPUT_SERVICE="web"
+  export INPUT_RACK="my-rack"
+  export INPUT_ERRORONZEROSCALE="false"
+
+  run sh entrypoint-get-scale.sh
+
+  [ "$status" -eq 0 ]
+  grep -q "RUNNING_PROCESSES=0" "$GITHUB_OUTPUT"
+  grep -q "SCALING_EVENT=true" "$GITHUB_OUTPUT"
+}
+
+@test "get-scale errors on zero running processes when errorOnZeroScale is true" {
+  setup_get_scale_stubs
+  export INPUT_APP="my-app"
+  export INPUT_SERVICE="web"
+  export INPUT_RACK="my-rack"
+  export INPUT_ERRORONZEROSCALE="true"
+
+  run sh entrypoint-get-scale.sh
+
+  [ "$status" -eq 1 ]
+  [[ "$output" == *"No running processes found"* ]]
+}
+
+@test "get-scale succeeds when at least one running process exists" {
+  setup_get_scale_stubs_with_ps "1" "abc web running R12345 1m worker"
+
+  export INPUT_APP="my-app"
+  export INPUT_SERVICE="web"
+  export INPUT_RACK="my-rack"
+  export INPUT_ERRORONZEROSCALE="true"
+
+  run sh entrypoint-get-scale.sh
+
+  [ "$status" -eq 0 ]
+  grep -q "RUNNING_PROCESSES=1" "$GITHUB_OUTPUT"
+}

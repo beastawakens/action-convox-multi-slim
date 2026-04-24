@@ -15,8 +15,10 @@ running_processes=$(printf "%s\n" "$ps_output" | awk '$3=="running"{c++} END{pri
 pending_processes=$(printf "%s\n" "$ps_output" | awk '$3=="pending"{c++} END{print c?c:0}')
 unhealthy_processes=$(printf "%s\n" "$ps_output" | awk '$3=="unhealthy"{c++} END{print c?c:0}')
 
-if [ "$running_processes" -eq 0 ] && [ "$pending_processes" -eq 0 ] && [ "$unhealthy_processes" -eq 0 ]; then
-  echo "::error::No processes found for service $INPUT_SERVICE in app $INPUT_APP"
+error_on_zero_scale="${INPUT_ERRORONZEROSCALE:-false}"
+
+if [ "$error_on_zero_scale" = "true" ] && [ "$running_processes" -eq 0 ]; then
+  echo "::error::No running processes found for service $INPUT_SERVICE in app $INPUT_APP"
   exit 1
 fi
 
