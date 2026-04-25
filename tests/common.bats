@@ -283,3 +283,17 @@ EOF
   [ "$status" -eq 0 ]
   grep -q "RUNNING_PROCESSES=1" "$GITHUB_OUTPUT"
 }
+
+@test "get-scale fails when service scale row is missing" {
+  setup_get_scale_stubs_with_ps "0" ""
+
+  export INPUT_APP="my-app"
+  export INPUT_SERVICE="worker"
+  export INPUT_RACK="my-rack"
+  export INPUT_ERRORONZEROSCALE="false"
+
+  run sh entrypoint-get-scale.sh
+
+  [ "$status" -eq 1 ]
+  [[ "$output" == *"No scale row found for service worker"* ]]
+}

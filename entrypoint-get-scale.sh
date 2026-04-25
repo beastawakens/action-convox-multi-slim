@@ -27,6 +27,11 @@ write_output "PENDING_PROCESSES" "$pending_processes"
 write_output "UNHEALTHY_PROCESSES" "$unhealthy_processes"
 
 # Parse scale values
+if [ -z "$scale_output" ]; then
+  echo "::error::No scale row found for service $INPUT_SERVICE in app $INPUT_APP; refusing to assume zero"
+  exit 1
+fi
+
 desired=$(echo "$scale_output" | awk '{print $2}')
 running=$(echo "$scale_output" | awk '{print $3}')
 cpu=$(echo "$scale_output" | awk '{print $4}')

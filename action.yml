@@ -77,26 +77,37 @@ inputs:
 outputs:
   BUILD:
     description: Build ID of the build matching the description
+    value: ${{ steps.convox-action.outputs.BUILD }}
   RELEASE:
     description: Release ID of the created build
+    value: ${{ steps.convox-action.outputs.RELEASE }}
   DESIRED:
     description: Count of desired instances
+    value: ${{ steps.convox-action.outputs.DESIRED }}
   RUNNING:
     description: Count of running instances
+    value: ${{ steps.convox-action.outputs.RUNNING }}
   CPU:
     description: CPU scale value
+    value: ${{ steps.convox-action.outputs.CPU }}
   MEMORY:
     description: Memory scale value
+    value: ${{ steps.convox-action.outputs.MEMORY }}
   PARAM_VALUE:
     description: Rack parameter value
+    value: ${{ steps.convox-action.outputs.PARAM_VALUE }}
   SCALING_EVENT:
     description: Boolean value to indicate if a scaling event is in progress
+    value: ${{ steps.convox-action.outputs.SCALING_EVENT }}
   RUNNING_PROCESSES:
     description: Count of running processes for the service
+    value: ${{ steps.convox-action.outputs.RUNNING_PROCESSES }}
   PENDING_PROCESSES:
     description: Count of pending processes for the service
+    value: ${{ steps.convox-action.outputs.PENDING_PROCESSES }}
   UNHEALTHY_PROCESSES:
     description: Count of unhealthy processes for the service
+    value: ${{ steps.convox-action.outputs.UNHEALTHY_PROCESSES }}
 runs:
   using: 'composite'
   steps:
@@ -108,6 +119,7 @@ runs:
         chmod 755 /tmp/convox
         sudo mv /tmp/convox /usr/local/bin/convox
     - name: Run convox action
+      id: convox-action
       shell: bash
       run: bash "$GITHUB_ACTION_PATH/entrypoint.sh"
       env:
